@@ -1,12 +1,56 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Hello</title>
+    <title>Simple Student Search</title>
 </head>
 <body>
+<div class="container">
+    <h2>🔍 Student Search by ID</h2>
 
-<h1>Hello Babu</h1>
-<p>Please be consistent in preparing for you interviews</p>
+    <form id="searchForm">
+        <input type="number" id="studentId" placeholder="Enter Student ID (1,2,3...)" required>
+        <button type="submit">Search Student</button>
+    </form>
 
+    <div id="result"></div>
+</div>
+
+<script>
+    document.getElementById('searchForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const studentId = document.getElementById('studentId').value;
+        const url = `hello?id=${studentId}`;
+
+        console.log("Sending request to:", url);
+
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+
+            const resultDiv = document.getElementById('result');
+
+            if (data.error) {
+                resultDiv.innerHTML = `<div class="error">❌ ${data.error}</div>`;
+            } else if (data.id) {
+                resultDiv.innerHTML = `
+                    <div class="success">✅ Student Found!</div>
+                    <div class="student-details">
+                        <p><strong>ID:</strong> ${data.id}</p>
+                        <p><strong>Roll Number:</strong> ${data.roll_number}</p>
+                        <p><strong>Name:</strong> ${data.student_name}</p>
+                        <p><strong>Class:</strong> ${data.class}</p>
+                        <p><strong>Parent Contact:</strong> ${data.parent_contact || 'N/A'}</p>
+                    </div>
+                `;
+            } else {
+                resultDiv.innerHTML = `<div class="error">❌ Unexpected response</div>`;
+            }
+        } catch (error) {
+            document.getElementById('result').innerHTML =
+                `<div class="error">❌ Error: ${error.message}</div>`;
+        }
+    });
+</script>
 </body>
 </html>
