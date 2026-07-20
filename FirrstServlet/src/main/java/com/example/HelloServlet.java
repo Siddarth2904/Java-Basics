@@ -24,7 +24,7 @@ public class HelloServlet extends HttpServlet {
             connection = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/student_db",
                     "root",
-                    "*Siddarth29"
+                    "password"
             );
 
             System.out.println("Database Connected Successfully!");
