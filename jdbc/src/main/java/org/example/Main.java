@@ -8,7 +8,7 @@ public class Main {
             Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("Driver loaded");
 
-            Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/movies_db","root","*Siddarth29");
+            Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/movies_db","root","password");
             System.out.println("connection established");
 
             Statement stm=conn.createStatement();
